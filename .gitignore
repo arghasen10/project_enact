@@ -11,3 +11,10 @@ scripts/*
 !scripts/
 !scripts/Calibration_pipeline.ipynb
 !scripts/Drift_Detection_pipeline.ipynb
+.DS_STore
+.vscode/
+datasets
+.venv/
+__pycache__/
+.ipynb_checkpoints/
+.python-version
