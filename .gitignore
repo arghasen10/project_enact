@@ -1,0 +1,13 @@
+# Ignore large data folders
+data/
+other/
+SensingFiles*/
+saved_models*/
+GeneratedOutput*/
+PreprocessedFiles/
+
+# Ignore all python scripts excepts the 2 pipelines
+scripts/*
+!scripts/
+!scripts/Calibration_pipeline.ipynb
+!scripts/Drift_Detection_pipeline.ipynb
