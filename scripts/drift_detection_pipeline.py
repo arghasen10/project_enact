@@ -1,15 +1,16 @@
 import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
 
 plt.rcParams.update({
-    "figure.figsize": (12, 8),
-    "figure.dpi": 150,
-    "font.size": 12,
-    "axes.titlesize": 12,
-    "axes.labelsize": 12,
-    "xtick.labelsize": 12,
-    "ytick.labelsize": 12,
-    "legend.fontsize": 12,
-    "figure.titlesize": 12,
+    "figure.figsize": (14, 5),
+    "figure.dpi": 100,
+    "font.size": 10,
+    "axes.titlesize": 10,
+    "axes.labelsize": 10,
+    "xtick.labelsize": 10,
+    "ytick.labelsize": 10,
+    "legend.fontsize": 10,
+    "figure.titlesize": 10,
 })
 
 # CONFIGURATION
@@ -220,7 +221,7 @@ def plot_diagnostic_grid(target, model_name, t_test, y_actual, y_pred, raw_res, 
     fig, axes = plt.subplots(1, 2)
 
     mode_str = f"(Drift Injected in {fault_sensor})" if fault_sensor is not None else "(Baseline)"
-    fig.suptitle(f"Target: {target} {mode_str}", fontweight="bold", y=1.05)
+    fig.suptitle(f"Target: {target} {mode_str}", fontweight="bold", y=0.99)
 
     # Panel 1: Actual vs predicted
     axes[0].plot(t_test, y_actual, label="Actual", alpha=0.5)
@@ -228,6 +229,8 @@ def plot_diagnostic_grid(target, model_name, t_test, y_actual, y_pred, raw_res, 
     if fault_time is not None:
         axes[0].axvline(fault_time, color="red", linestyle="--", alpha=0.6, label="Fault Injection")
     axes[0].set_title("Actual vs Predicted")
+    axes[0].set_ylabel(target)
+    axes[0].set_xlabel("Timestamp")
     axes[0].legend()
 
     # Panel 2: Raw residuals
@@ -250,13 +253,17 @@ def plot_diagnostic_grid(target, model_name, t_test, y_actual, y_pred, raw_res, 
         axes[1].axvline(fault_time, color="red", linestyle="--", alpha=0.6, label="Fault Injection")
     axes[1].set_title("Standardized Residuals (Z-Score)")
     axes[1].set_ylabel("Std Deviations")
+    axes[1].set_xlabel("Timestamp")
     axes[1].legend()
 
     for ax in axes:
-        ax.xaxis.set_major_locator(mticker.MaxNLocator(6))
+        date_locator = mdates.AutoDateLocator(minticks=3, maxticks=6)
+        ax.xaxis.set_major_locator(date_locator)
+        ax.xaxis.set_major_formatter(mdates.ConciseDateFormatter(date_locator))
         ax.grid(True, alpha=0.2)
 
-    plt.tight_layout()
+    fig.autofmt_xdate(rotation=30, ha="right")
+    plt.tight_layout(rect=(0, 0, 1, 0.93))
     plt.show()
 
 # Data preparation - train/tune/evaluate split

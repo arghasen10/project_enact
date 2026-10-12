@@ -7,10 +7,10 @@ GeneratedOutput*/
 PreprocessedFiles/
 
 # Ignore all python scripts excepts the 2 pipelines
-scripts/*
-!scripts/
-!scripts/Calibration_pipeline.ipynb
-!scripts/Drift_Detection_pipeline.ipynb
+# scripts/*
+# !scripts/
+# !scripts/Calibration_pipeline.ipynb
+# !scripts/Drift_Detection_pipeline.ipynb
 .DS_STore
 .vscode/
 datasets
